@@ -69,14 +69,14 @@
     <div id="canvas-container"></div>
 
     <div id="ui-layer">
-        <h1>Merry Christmas</h1>
+        <h1>Merry Christmas, My love</h1>
     </div>
 
     <!-- Audio element -->
     <audio id="bgMusic" loop>
-        <!-- Audio -->
-        <source src="https://drive.google.com/file/d/1j0JSqBgtaxqCCewf5TUKjhtNQXLu6cPH/view?usp=sharing" type="audio/mpeg">
-    </audio>
+    <source src="https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/music.mp3" type="audio/mpeg">
+</audio>
+
 
     <script type="module">
         import * as THREE from 'three';
@@ -87,17 +87,17 @@
 
         // --- ẢNH GÁN CỨNG - Thay đổi các URL này thành ảnh của bạn ---
         const HARDCODED_IMAGES = [
-            'https://photos.google.com/photo/AF1QipNQnetVlTNjZHISe6OgQj4ow5GNJKv5W3VRVmCn',
-            'https://photos.google.com/photo/AF1QipMlQAt04WZG-HqOr0YyANWtl0nJITLu54T-E6ar',
-            'https://photos.google.com/photo/AF1QipNc18yJhdZSQKJNDMuFq2AwdU4vlhYjMPoFqrVM',
-            'https://photos.google.com/photo/AF1QipNogeCOCyCkKvKYlvlhzwyQ_FESol1oGwO95S4d',
-            'https://photos.google.com/photo/AF1QipNi1rEfsJrpgM4lm9hu99IOX0LwmpKlGFeT6FMa',
-            'https://photos.google.com/photo/AF1QipPrQINDbTqRL3llR8gElLzS7X4c_T4ixa68vEmc',
-            'https://photos.google.com/photo/AF1QipMTNEZYFgaWLxpE0IqsoKfw94KnYe3g2XVSExpQ',
-            'https://photos.google.com/photo/AF1QipMAeLafDkwkSXh_IQX-3Y91JdSkvk6tH1bpjzZX',
-            'https://photos.google.com/photo/AF1QipMAeLafDkwkSXh_IQX-3Y91JdSkvk6tH1bpjzZX',
-            'https://photos.google.com/photo/AF1QipNL29q0SSc1XU_m4lHAc7SVAK6YxengBTzHpARH'
-        ];
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh1.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh2.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh3.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh4.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh5.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh6.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh7.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh8.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh9.jpg',
+    'https://raw.githubusercontent.com/ThanhHung0203/Noel_TYN/main/assets/anh10.jpg'
+];
 
         // --- CONFIGURATION ---
         const CONFIG = {
@@ -459,15 +459,24 @@
 
 
         function setupAudio() {
-            audioElement = document.getElementById('bgMusic');
-            
-            // Auto-play với user interaction
-            document.addEventListener('click', () => {
-                if (audioElement.paused) {
-                    audioElement.play().catch(e => console.log('Audio play failed:', e));
-                }
-            }, { once: true });
-        }
+    const audio = document.getElementById('bgMusic');
+    audio.volume = 0.6;
+
+    const unlock = () => {
+        audio.play().then(() => {
+            console.log('🎵 Audio started');
+        }).catch(err => {
+            console.warn('Audio blocked:', err);
+        });
+
+        document.removeEventListener('click', unlock);
+        document.removeEventListener('touchstart', unlock);
+    };
+
+    document.addEventListener('click', unlock);
+    document.addEventListener('touchstart', unlock);
+}
+
 
         function setupEvents() {
             window.addEventListener('resize', () => {
